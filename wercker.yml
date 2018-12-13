@@ -2,7 +2,8 @@ box: golang
 build:
   base-path: /go/src/bedrock
   steps:
-    - setup-go-workspace
+    - wercker/setup-go-workspace
+       package-dir: github.com/wercker/setup-go-workspace
 
     - script:
         name: go get
