@@ -13,10 +13,28 @@ build:
     - script:
         name: go build
         code: |
-          go build ./...
+          CGO_ENABLED=0 \
+            go build \
+            -o "$WERCKER_OUTPUT_DIR/bedrock"
+          cp -r "$WERCKER_OUTPUT_DIR/bedrock" "$WERCKER_REPORT_ARTIFACTS_DIR"
 
-    # Test the project
+push-bedrock-to-ocir:
+    box:
+        id: oraclelinux
+        tag: 7-slim
+    steps:
+
     - script:
-        name: go test
-        code: |
-          go test ./...
+         name: move bedrock
+         code: mv bedrock /bedrock
+
+    - internal/docker-push:
+         username: $OCI_USERNAME
+         password: $OCI_PASSWORD
+         repository: iad.ocir.io/odx-pipelines/bihaber/test
+         registry: https://iad.ocir.io/v2
+         tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+
+
+
+
