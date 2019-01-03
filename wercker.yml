@@ -31,10 +31,10 @@ push-bedrock-to-ocir:
     - internal/docker-push:
          username: $OCI_USERNAME
          password: $OCI_PASSWORD
-         repository: iad.ocir.io/odx-pipelines/bihaber/test
+         repository: iad.ocir.io/odx-pipelines/nigeldeakin/bedrock
          registry: https://iad.ocir.io/v2
          tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
-         labels: thisIsABadLabel
+         #labels: thisIsABadLabel
 
 
 
