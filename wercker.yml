@@ -1,40 +1,13 @@
 box: golang
 build:
-  base-path: /go/src/bedrock
   steps:
-    - setup-go-workspace
-   
-    - script:
-        name: go get
-        code: |
-          go get
-
-    # Build the project
-    - script:
-        name: go build
-        code: |
-          CGO_ENABLED=0 \
-            go build \
-            -o "$WERCKER_OUTPUT_DIR/bedrock"
-          cp -r "$WERCKER_OUTPUT_DIR/bedrock" "$WERCKER_REPORT_ARTIFACTS_DIR"
-
-push-bedrock-to-ocir:
-    box:
-        id: oraclelinux
-        tag: 7-slim
-    steps:
-
-    - script:
-         name: move bedrock
-         code: mv bedrock /bedrock
-
     - internal/docker-push:
          username: $OCI_USERNAME
          password: $OCI_PASSWORD
          repository: iad.ocir.io/odx-pipelines/nigeldeakin/bedrock
          registry: https://iad.ocir.io/v2
          tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
-         labels: thisIsABadLabel
+         #labels: thisIsABadLabel
 
 
 
