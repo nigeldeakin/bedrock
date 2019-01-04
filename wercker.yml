@@ -7,7 +7,7 @@ build:
          repository: iad.ocir.io/odx-pipelines/nigeldeakin/bedrock
          registry: https://iad.ocir.io/v2
          tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
-         labels: thisIsABadLabel
+         labels: thisIs=ABadLabel
 
 
 
